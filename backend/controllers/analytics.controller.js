@@ -47,10 +47,11 @@ export const getDailySalesData = async (startDate, endDate) => {
 			{ $sort: { _id: 1 } },
 		]);
 
-	
+
+		
 
 		const dateArray = getDatesInRange(startDate, endDate);
-	
+
 
 		return dateArray.map((date) => {
 			const foundData = dailySalesData.find((item) => item._id === date);
