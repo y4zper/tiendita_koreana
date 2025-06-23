@@ -11,13 +11,10 @@ import PurchaseCancelPage from './pages/PurchaseCancelPage.jsx'
 
 
 import { Toaster } from 'react-hot-toast'
-import { useUserStore } from './stores/useUserStore'
+import { useUserStore } from './stores/useUserStore.js'
 import { useEffect } from 'react'
 import LoadingSpinner from './components/LoadingSpinner'
 import { useCartStore } from './stores/useCartStore.js'
-
-
-
 
 
 function App() { 
