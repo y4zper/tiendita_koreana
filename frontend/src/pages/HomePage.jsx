@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import CategoryItem from "../components/CategoryItem";
-import { useProductStore } from "../stores/useProductStore";
-import FeaturedProducts from "../components/FeaturedProducts";
+import { useProductStore } from "../stores/useProductStore.js";
+import FeaturedProducts from "../components/FeaturedProducts.jsx";
 import { motion } from "framer-motion";
 
 

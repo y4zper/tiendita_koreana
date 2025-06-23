@@ -1,6 +1,6 @@
 import {create} from "zustand";
 import {toast} from "react-hot-toast";
-import axios from "../lib/axios";
+import axios from "../lib/axios.js";
 
 
 export const useUserStore = create((set, get) => ({
@@ -103,7 +103,7 @@ axios.interceptors.response.use(
 				useUserStore.getState().logout();
 				return Promise.reject(refreshError);
 			}
-		}
+		}	
 		return Promise.reject(error);
 	}
 );
