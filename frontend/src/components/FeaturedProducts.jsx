@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
+import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
 
-const FeaturedProducts = ({ featuredProducts }) => {
+const FeaturedProducts = ({ featuredProducts, product }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [itemsPerPage, setItemsPerPage] = useState(4);
 
 	const { addToCart } = useCartStore();
+	const { user } = useUserStore();
+	const handleAddToCart = () => {
+		if (!user) {
+			toast.error("Please login to add products to cart");
+			return;
+		} else {
+			// add to cart
+			addToCart(product);
+		}
+	};
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -21,6 +33,8 @@ const FeaturedProducts = ({ featuredProducts }) => {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	
+	
 	const nextSlide = () => {
 		setCurrentIndex((prevIndex) => prevIndex + itemsPerPage);
 	};
@@ -58,7 +72,7 @@ const FeaturedProducts = ({ featuredProducts }) => {
 												${product.price.toFixed(2)}
 											</p>
 											<button
-												onClick={() => addToCart(product)}
+												onClick={handleAddToCart}
 												className='w-full bg-red-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 
 												flex items-center justify-center'
 											>
