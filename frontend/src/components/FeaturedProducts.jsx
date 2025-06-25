@@ -4,18 +4,17 @@ import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
 
-const FeaturedProducts = ({ featuredProducts, product }) => {
+const FeaturedProducts = ({ featuredProducts, product  }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [itemsPerPage, setItemsPerPage] = useState(4);
 
 	const { addToCart } = useCartStore();
 	const { user } = useUserStore();
-	const handleAddToCart = () => {
+	const handleAddToCart = (product) => {
 		if (!user) {
 			toast.error("Please login to add products to cart");
 			return;
 		} else {
-			// add to cart
 			addToCart(product);
 		}
 	};
@@ -72,13 +71,15 @@ const FeaturedProducts = ({ featuredProducts, product }) => {
 												${product.price.toFixed(2)}
 											</p>
 											<button
-												onClick={handleAddToCart}
+												onClick={() => handleAddToCart(product)}
 												className='w-full bg-red-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 
 												flex items-center justify-center'
 											>
 												<ShoppingCart className='w-5 h-5 mr-2' />
 												Add to Cart
 											</button>
+											
+
 										</div>
 									</div>
 								</div>
