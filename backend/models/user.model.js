@@ -3,22 +3,30 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        required: [true,"Name is required"]
-    },
-    email:{
-        type: String,
-        required: [true,"Email is required"],
-        unique: true,
-        lowercase: true,
-        trim : true
-    },
-    password:{
-        type: String,
-        required: [true, "Password is required"],
-        minlength: [6,"Password must be at least 6 characters long"]
-    },
+    name: {
+    type: "String",
+    required: [true, "Name is required"],
+    minlength: [2, "Name must be at least 2 characters long"],
+    maxlength: [50, "Name must be less than 50 characters"],
+    match: [/^[a-zA-Z\s]+$/, "Name must contain only letters and spaces"],
+  },
+  email: {
+    type: "String",
+    required: [true, "Email is required"],
+    unique: true,
+    lowercase: true,
+    trim: true,
+    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please provide a valid email"],
+  },
+  password: {
+    type: "String",
+    required: [true, "Password is required"],
+    minlength: [6, "Password must be at least 6 characters long"],
+    match: [
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/,
+      "Password must contain at least one letter and one number",
+    ],
+  },
     cartItems:[
         {
             quantity:{
@@ -36,7 +44,12 @@ const userSchema = new mongoose.Schema({
         type : "String",
         enum : ["customer", "admin"],
         default : "customer"
-    }
+    },
+
+    isVerified: {
+    type: Boolean,
+    default: false,
+},
 
     
 }, {
